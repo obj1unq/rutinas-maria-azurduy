@@ -136,7 +136,7 @@ class Club {
     }
 
     method prediosTranquilosPara(persona){
-        return predios.filter({predio => })
+        return predios.filter({predio => predio.predioQueMasCaloriasQuemaA(persona)})
 
     }
 
