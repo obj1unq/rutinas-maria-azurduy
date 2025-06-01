@@ -58,7 +58,7 @@ class RemoCompeticion inherits Remo{ //Remo(intensidad=1.7){ *opcion1
 
 
 } 
-     
+////////////////////////////////////////////////////////////////////   
 class Persona {
 
     var property peso // podria ser method peso() ?
@@ -106,8 +106,63 @@ class Sedentaria inherits Persona {
         return self.peso() > 50
 
     }
+}
 
+class Atleta inherits Persona {
+    const property tiempo = 90
 
+    override method tiempoQueEjercitaRutina() {
+        return tiempo
+    }
+    override method pesoAPerderCon(rutina) { //
+        return super(rutina) -1
+    }
+
+    override method kilosPorCaloriaQuePierde(){
+        return 8000
+    }
+    
+    override method puedeRealizar(rutina) {
+        return self.caloriasBajadasConRutina(rutina) > 1000
+    }
+    
+}
+////////////////////////////////////////////////////////////////////
+class Club {
+    const property predios= #{}
+
+    method mejorPredioPara(persona) {
+        return predios.max({predio => predio.caloríasQueQuemarianRutinasA(persona)})
+    }
+
+    method prediosTranquilosPara(persona){
+        return predios.filter({predio => })
+
+    }
+
+    method rutinasMasExigentesPara(persona) {
+        return predios.maxp({predio => predio.rutinaMasExigentePara(persona)}) //map(closure) Answers a new collection that contains the result of transforming
+                                                                                //each of self collection's elements using a given closure.
+    }
+
+}
+
+class Predio {
+    const property rutinas=#{}
+
+    method caloríasQueQuemarianRutinasA(persona) {
+        return rutinas.sum({rutina => persona.caloriasBajadasConRutina(rutina)})
+
+    }
+
+    method predioQueMasCaloriasQuemaA(persona){
+        return rutinas.any({rutina => persona.caloriasBajadasConRutina(rutina) < 500})
+    }
+
+    method rutinaMasExigentePara(persona) {
+        return rutinas.max({rutina => persona.caloriasBajadasConRutina(rutina)})
+        //rutina más exigente es la que más calorías le hace quemar a esa persona                
+    }
 
 
 }
