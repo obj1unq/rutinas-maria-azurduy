@@ -128,6 +128,65 @@ class Atleta inherits Persona {
     
 }
 ////////////////////////////////////////////////////////////////////
+
+class Club {
+    const property predios = #{}
+
+    method mejorPredioPara(persona) {
+        return predios.max({predio => predio.cantidadDeCaloriasGastadas(persona)})
+
+    }
+
+    method prediosTranquilosPara(persona) {
+        return predios.filter({predio => predio.tieneRutinaBajaEnCaloriasPara(persona)})
+
+    }
+
+    method rutinasMasExigentesPara(persona) { //dame por cada predio, la rutina mas exigente
+        return predios.map({predio => predio.rutinaMasExigentePara(persona)}).asSet()
+
+    }
+
+    
+}
+
+
+class Predio {
+
+    const property rutinas = #{} 
+
+    method cantidadDeCaloriasGastadas(persona){
+        return rutinas.sum({rutina => rutina.caloriasBajadasConRutina(rutina)})
+    }
+
+    method tieneRutinaBajaEnCaloriasPara(persona){
+        return rutinas.any({rutina => rutina.caloriasBajadasConRutina(rutina) > 500})
+    }
+
+    method rutinaMasExigentePara(persona){ //encontra la rutina mas exigente de entre todas las rutinas 
+        return rutinas.find({rutina => rutina.caloriasBajadasConRutina(rutina)})
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 
 class Club {
     const property predios= #{}
 
@@ -141,7 +200,7 @@ class Club {
     }
 
     method rutinasMasExigentesPara(persona) {
-        return predios.maxp({predio => predio.rutinaMasExigentePara(persona)}) //map(closure) Answers a new collection that contains the result of transforming
+        return predios.map({predio => predio.rutinaMasExigentePara(persona)}) //map(closure) Answers a new collection that contains the result of transforming
                                                                                 //each of self collection's elements using a given closure.
     }
 
@@ -165,4 +224,4 @@ class Predio {
     }
 
 
-}
+} */
